@@ -444,8 +444,6 @@ $RECYCLE.BIN/
 .idea/
 *.sln.iml
 
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
 # Compiled output
 /dist
 /tmp
@@ -486,3 +484,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+*.db
+*.db-shm
+*.db-wal
+.angular/*
