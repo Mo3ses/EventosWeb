@@ -30,6 +30,7 @@ namespace Eventos.API
         {
 
             services.AddDbContext<DataContext>(c => c.UseSqlite(Configuration.GetConnectionString("Database")));
+            services.AddCors(); //Solicitações entre origens
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -52,6 +53,8 @@ namespace Eventos.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(a => a.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());//3
 
             app.UseEndpoints(endpoints =>
             {
