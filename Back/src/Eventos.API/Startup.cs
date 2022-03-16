@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Eventos.API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +29,7 @@ namespace Eventos.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<DataContext>(c => c.UseSqlite(Configuration.GetConnectionString("Database")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
