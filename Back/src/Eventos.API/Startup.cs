@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Eventos.API.Data;
+using Eventos.Application.Interfaces;
+using Eventos.Application.Services;
+using Eventos.Persistence;
+using Eventos.Persistence.Data;
+using Eventos.Persistence.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,9 +33,21 @@ namespace Eventos.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<DataContext>(c => c.UseSqlite(Configuration.GetConnectionString("Database")));
+            services.AddDbContext<EventosDataContext>(c => c.UseSqlite(Configuration.GetConnectionString("Database")));
             services.AddCors(); //Solicitações entre origens
-            services.AddControllers();
+
+            services.AddScoped<IEventoService, EventoService>();
+            services.AddScoped<IEventosRepository, EventosRepository>();
+            // services.AddScoped<IPalestranteService, PalestranteService>();
+            // services.AddScoped<IPalestrantesRepository,PalestrantesRepository>();
+            services.AddScoped<IGeralRepository, GeralRepository>();
+            
+
+            services.AddControllers()
+                    .AddNewtonsoftJson(
+                        x => x.SerializerSettings.ReferenceLoopHandling =
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );//Newtonsoft Ignorar Looping
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Eventos.API", Version = "v1" });
