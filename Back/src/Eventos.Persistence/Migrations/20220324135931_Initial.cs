@@ -110,7 +110,7 @@ namespace Eventos.Persistence.Migrations
                         column: x => x.EventoId,
                         principalTable: "Eventos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RedeSociais_Palestrantes_PalestranteId",
                         column: x => x.PalestranteId,

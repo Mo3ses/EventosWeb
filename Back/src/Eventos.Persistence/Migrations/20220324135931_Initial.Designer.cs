@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eventos.Persistence.Migrations
 {
     [DbContext(typeof(EventosDataContext))]
-    [Migration("20220321185401_Initial")]
+    [Migration("20220324135931_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -183,7 +183,8 @@ namespace Eventos.Persistence.Migrations
                 {
                     b.HasOne("Eventos.Domain.Evento", "Evento")
                         .WithMany("RedeSociais")
-                        .HasForeignKey("EventoId");
+                        .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Eventos.Domain.Palestrante", "Palestrante")
                         .WithMany("RedeSociais")

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eventos.Persistence.Migrations
 {
     [DbContext(typeof(EventosDataContext))]
-    partial class EventosContextModelSnapshot : ModelSnapshot
+    partial class EventosDataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -181,7 +181,8 @@ namespace Eventos.Persistence.Migrations
                 {
                     b.HasOne("Eventos.Domain.Evento", "Evento")
                         .WithMany("RedeSociais")
-                        .HasForeignKey("EventoId");
+                        .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Eventos.Domain.Palestrante", "Palestrante")
                         .WithMany("RedeSociais")
