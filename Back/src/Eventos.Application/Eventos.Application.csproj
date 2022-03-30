@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Eventos.Domain\Eventos.Domain.csproj" />
     <ProjectReference Include="..\Eventos.Persistence\Eventos.Persistence.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
 </Project>
