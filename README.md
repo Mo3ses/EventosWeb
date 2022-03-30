@@ -6,7 +6,7 @@ Objetivo deste projeto é consumir uma API para desenvolver minhas habilidades e
 - [x] Back - Camadas
 - [x] Front - Interpolação, Diretivas e Binding
 - [x] Front - Rotas
-- [ ] Front - Reactive Forms
+- [x] Front - Reactive Forms
 - [ ] Back - AutoMapper
 - [ ] Front - CRUD
 - [ ] Back & Front - .NET Core Identity e Autenticação JWT
