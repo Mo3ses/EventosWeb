@@ -34,4 +34,9 @@ export class RegistrationComponent implements OnInit {
       confirmarSenha: ['', Validators.required]
     }, formOptions);
   }
+
+  public cssValidator(campoForm: FormControl): any {
+    return {'is-invalid': campoForm.errors && campoForm.touched};
+  }
+
 }
