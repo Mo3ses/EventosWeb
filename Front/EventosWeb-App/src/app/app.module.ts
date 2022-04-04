@@ -10,6 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
+import { NgxCurrencyModule } from 'ngx-currency';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
@@ -18,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { EventoService } from './Services/evento.service';
+import { LoteService } from './Services/lote.service';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 
 import { ContatosComponent } from './components/contatos/contatos.component';
@@ -70,8 +72,9 @@ defineLocale('pt-br', ptBrLocale);
       progressBar: true,
     }),
     NgxSpinnerModule,
+    NgxCurrencyModule
   ],
-  providers: [EventoService],
+  providers: [EventoService, LoteService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

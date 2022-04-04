@@ -8,10 +8,11 @@ Objetivo deste projeto é consumir uma API para desenvolver minhas habilidades e
 - [x] Front - Rotas
 - [x] Front - Reactive Forms
 - [x] Back - AutoMapper
-- [ ] Front - CRUD
+- [x] Front - CRUD
+## Avançado
 - [ ] Back & Front - .NET Core Identity e Autenticação JWT
 - [ ] Back & Front - Paginação e Filtro Inteligente
 - [ ] Back & Front - Palestrantes e Redes Sociais
 
 ##
-Status Atual: Começando a implementar CRUD no Angular
+Status Atual: Estudando Identity e JWT

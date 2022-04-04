@@ -39,6 +39,8 @@ namespace Eventos.API
 
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<IEventosRepository, EventosRepository>();
+            services.AddScoped<ILoteService, LoteService>();
+            services.AddScoped<ILoteRepository, LoteRepository>();
             // services.AddScoped<IPalestranteService, PalestranteService>();
             // services.AddScoped<IPalestrantesRepository,PalestrantesRepository>();
             services.AddScoped<IGeralRepository, GeralRepository>();
