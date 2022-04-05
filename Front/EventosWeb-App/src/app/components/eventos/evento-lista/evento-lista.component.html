@@ -31,9 +31,9 @@
       <th>Tema</th>
       <th class="d-none d-md-table-cell">Local</th>
       <th>Data</th>
-      <th class="d-none d-md-table-cell">Numero de Pessoas</th>
+      <th class="d-none d-md-table-cell text-center">Numero de Pessoas</th>
       <th class="d-none d-md-table-cell">Lote</th>
-      <th>Opções</th>
+      <th class="text-center">Opções</th>
     </tr>
   </thead>
   <tbody *ngIf="eventos && eventos.length">
@@ -42,7 +42,7 @@
         <img
         [collapse]="exibirImg"
         [isAnimated]="true"
-        src="/assets/{{evento.imagemURL}}"
+        [src]="showImage(evento.imagemURL)"
         [style.width.rem]=larguraImg
         alt="Imagem de Eventos">
       </td>
@@ -50,16 +50,11 @@
       <td>{{evento.tema}}</td>
       <td class="d-none d-md-table-cell">{{evento.local}}</td>
       <td>{{evento.dataEvento | DateFormatPipe}}</td>
-      <td class="d-none d-md-table-cell">{{evento.qtdPessoas}}</td>
+      <td class="d-none d-md-table-cell text-center">{{evento.qtdPessoas}}</td>
       <td class="d-none d-md-table-cell">{{evento.lotes[0]?.nome}}</td>
-      <td>
-        <!-- <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar">
-          <i class="fa fa-edit"></i>
-          Editar
-        </button> -->
+      <td class="text-center">
         <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal($event, template, evento.id)">
           <i class="fa fa-trash"></i>
-          <!-- Excluir -->
         </button>
       </td>
     </tr>

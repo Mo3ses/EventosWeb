@@ -12,6 +12,7 @@ import { Lote } from '@app/Models/Lote';
 import { LoteService } from '@app/Services/lote.service';
 import { from } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { environment } from '@environments/environment';
 
 
 @Component({
@@ -22,11 +23,13 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 export class EventoDetalheComponent implements OnInit {
 
   modalRef: BsModalRef;
+  file: File;
   eventoId: number;
   form!: FormGroup;
   evento = {} as Evento;
   modoSalvar = 'post';
   loteAtual = {id: 0, nome: '', indice: 0};
+  imagemURL = 'assets/img/upload.png';
 
 
   get lotes(): FormArray{
@@ -43,6 +46,15 @@ export class EventoDetalheComponent implements OnInit {
 
   get bsConfig(): any{
     return {dateInputFormat: 'DD-MM-YYYY hh:mm',
+    isAnimated: true,
+    adaptivePosition: true,
+    containerClass: 'theme-default',
+    showWeekNumbers: false,
+    }
+  }
+
+  get bsConfigLotes(): any{
+    return {
     isAnimated: true,
     adaptivePosition: true,
     containerClass: 'theme-default',
@@ -76,9 +88,10 @@ export class EventoDetalheComponent implements OnInit {
         (evento: Evento) => {
           this.evento = {... evento};
           this.form.patchValue(this.evento);
-          this.evento.lotes.forEach(lote => {
-            this.lotes.push(this.criarLote(lote));
-          })
+          this.carregarLotes();
+          if (this.evento.imagemURL !== '') {
+            this.imagemURL = environment.apiURL + 'Resources/Images/' + this.evento.imagemURL;
+          }
         },
         (error: any) => {
           this.spinner.hide();
@@ -88,6 +101,20 @@ export class EventoDetalheComponent implements OnInit {
         () => {this.spinner.hide()},
       );
     }
+  }
+
+  public carregarLotes(): void {
+    this.loteService.getLotesByEventId(this.eventoId).subscribe(
+      (lotesRetorno: Lote[]) => {
+        lotesRetorno.forEach(lote => {
+          this.lotes.push(this.criarLote(lote));
+        });
+      },
+      (error: any) => {
+        this.toastr.error('Erro ao tentar carregar lotes', 'Erro');
+        console.error(error);
+      }
+    ).add(() => this.spinner.hide());
   }
 
   ngOnInit(): void {
@@ -101,7 +128,7 @@ export class EventoDetalheComponent implements OnInit {
       local: ['', Validators.required],
       dataEvento: ['', Validators.required],
       qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
-      imagemURL: ['', Validators.required],
+      imagemURL: [''],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       lotes: this.fb.array([]),
@@ -207,6 +234,31 @@ export class EventoDetalheComponent implements OnInit {
 
   public declineDeleteLote(): void {
     this.modalRef.hide();
+  }
+
+  onFileChange(ev: any): void{
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => this.imagemURL = event.target.result;
+
+    this.file = ev.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImagem();
+  }
+
+  uploadImagem(): void{
+    this.spinner.show();
+    this.eventoService.postUpload(this.eventoId, this.file).subscribe(
+      () => {
+        this.carregarEvento();
+        this.toastr.success('Imagem enviada com Sucesso.', 'Sucesso!');
+      },
+      (error: any) => {
+        this.toastr.error('Erro ao tentar enviar imagem.', 'Erro!');
+        console.log(error);
+      }
+    ).add(() => this.spinner.hide());
   }
 
 }
